@@ -1,0 +1,26 @@
+<?php
+session_start();
+header("content-type:image/png");
+//创建一个画布
+$im=imagecreate(80,20);
+//给这张画布填充一个背景色
+$color=imagecolorallocate($im,200,200,200);
+
+for($i=1;$i<=4;$i++)
+{
+	$color=imagecolorallocate($im,rand(0,255),rand(0,255),rand(0,255));
+	imageline($im,0,rand(0,20),rand(50,80),rand(0,20),$color);
+}
+$num=rand(1000,9999);//产生一个四位的随机数字
+$_SESSION["se"]=$num;
+$x=0;
+for($i=0;$i<4;$i++)
+{
+	$x=$x+14;
+	$n=substr($num,$i,1);
+	$color=imagecolorallocate($im,rand(0,255),rand(0,255),rand(0,255));
+	imagettftext($im,15,rand(-50,50),$x,15,$color,"font/FZSTK.TTF",$n);
+}
+imagepng($im);//输出图片
+imagedestroy($im);//清除内存中的图片
+?>
